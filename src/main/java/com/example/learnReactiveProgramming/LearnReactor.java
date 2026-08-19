@@ -11,7 +11,13 @@ import reactor.core.publisher.Flux;
 public class LearnReactor {
 //    Producer
     public void learReactor(){
-        Flux<String> fruits = Flux.just("apple", "litchi", "Banana");
+        Flux<String> fruits = Flux.just("apple", "litchi", "Banana")
+                        .map(fruit->{
+                           if (fruit.equals("litchi"))
+                               throw new RuntimeException("No likely litchi");
+
+                            return fruit;
+                        });
 
         fruits.subscribe(
                 new Subscriber<>() {
