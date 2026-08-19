@@ -15,15 +15,18 @@ public class LearnReactor {
 
         fruits.subscribe(
                 new Subscriber<>() {
+                    Subscription subscription;
                     @Override
-                    public void onSubscribe(Subscription subscription) {
+                    public void onSubscribe(Subscription s) {
+                        subscription = s;
                         log.info("onSubscribe");
-                        subscription.request(1);
+                        s.request(1);
                     }
 
                     @Override
                     public void onNext(String s) {
                         log.info("Fruit: {}", s);
+                        subscription.request(1);
                     }
 
                     @Override
