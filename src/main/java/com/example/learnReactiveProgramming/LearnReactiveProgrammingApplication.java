@@ -1,13 +1,22 @@
 package com.example.learnReactiveProgramming;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LearnReactiveProgrammingApplication {
+@RequiredArgsConstructor
+public class LearnReactiveProgrammingApplication implements CommandLineRunner {
+
+    private final LearnReactor learnReactor;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LearnReactiveProgrammingApplication.class, args);
 	}
 
+    @Override
+    public void run(String... args) throws Exception {
+        learnReactor.learReactor();
+    }
 }
