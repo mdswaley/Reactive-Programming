@@ -1,11 +1,11 @@
 package com.example.learnReactiveProgramming;
 
 import lombok.extern.slf4j.Slf4j;
-import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.BaseSubscriber;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.SignalType;
 
 @Component
 @Slf4j
@@ -14,8 +14,8 @@ public class LearnReactor {
     public void learReactor(){
         Flux<String> fruits = Flux.just("apple", "litchi", "Banana")
                         .map(fruit->{
-                           if (fruit.equals("litchi"))
-                               throw new RuntimeException("No likely litchi");
+                           if (fruit.equals("Banana"))
+                               throw new RuntimeException("No likely Banana");
 
                             return fruit;
                         });
@@ -23,27 +23,35 @@ public class LearnReactor {
         fruits.subscribe(new BaseSubscriber<String>() {
             @Override
             protected void hookOnSubscribe(Subscription subscription) {
-                super.hookOnSubscribe(subscription);
+                log.info("hookOnSubscribe");
+                request(1);
             }
 
             @Override
             protected void hookOnNext(String value) {
-                super.hookOnNext(value);
+                log.info("Processing: {}", value);
+                if(value.equals("litchi")) cancel();
+                request(1);
             }
 
             @Override
             protected void hookOnComplete() {
-                super.hookOnComplete();
+                log.info("hookOnComplete");
             }
 
             @Override
             protected void hookOnError(Throwable throwable) {
-                super.hookOnError(throwable);
+                log.info("hookOnError : {}", throwable.getMessage(), throwable);
             }
 
             @Override
             protected void hookOnCancel() {
-                super.hookOnCancel();
+                log.info("hookOnCancel");
+            }
+
+            @Override
+            protected void hookFinally(SignalType type){
+                log.info("hookOnFinally {}", type.name());
             }
         });
 
