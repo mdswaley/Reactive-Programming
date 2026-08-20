@@ -24,6 +24,7 @@ public class LearnReactor {
 
 //        Interval:- creates a Flux that emits values repeatedly at a fixed time interval
         Flux<String> flux = Flux.interval(Duration.ofSeconds(1))
+                        .take(5)
                         .map(tick -> "tick : "+tick);
 
         flux.subscribe(
