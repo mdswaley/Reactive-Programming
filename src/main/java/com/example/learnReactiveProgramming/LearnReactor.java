@@ -7,6 +7,8 @@ import reactor.core.publisher.BaseSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.SignalType;
 
+import java.time.Duration;
+
 @Component
 @Slf4j
 public class LearnReactor {
@@ -20,40 +22,56 @@ public class LearnReactor {
                             return fruit;
                         });
 
-        fruits.subscribe(new BaseSubscriber<String>() {
-            @Override
-            protected void hookOnSubscribe(Subscription subscription) {
-                log.info("hookOnSubscribe");
-                request(1);
-            }
+//        Interval:- creates a Flux that emits values repeatedly at a fixed time interval
+        Flux<String> flux = Flux.interval(Duration.ofSeconds(1))
+                        .map(tick -> "tick : "+tick);
 
-            @Override
-            protected void hookOnNext(String value) {
-                log.info("Processing: {}", value);
-                if(value.equals("litchi")) cancel();
-                request(1);
-            }
+        flux.subscribe(
+                item -> {
+                    log.info("Processing: {}", item);
+                },
+                err ->{
+                    log.error("onError ", err);
+                },
+                () -> {
+                    log.info("onComplete");
+                }
+        );
 
-            @Override
-            protected void hookOnComplete() {
-                log.info("hookOnComplete");
-            }
-
-            @Override
-            protected void hookOnError(Throwable throwable) {
-                log.info("hookOnError : {}", throwable.getMessage(), throwable);
-            }
-
-            @Override
-            protected void hookOnCancel() {
-                log.info("hookOnCancel");
-            }
-
-            @Override
-            protected void hookFinally(SignalType type){
-                log.info("hookOnFinally {}", type.name());
-            }
-        });
+//        fruits.subscribe(new BaseSubscriber<String>() {
+//            @Override
+//            protected void hookOnSubscribe(Subscription subscription) {
+//                log.info("hookOnSubscribe");
+//                request(1);
+//            }
+//
+//            @Override
+//            protected void hookOnNext(String value) {
+//                log.info("Processing: {}", value);
+//                if(value.equals("litchi")) cancel();
+//                request(1);
+//            }
+//
+//            @Override
+//            protected void hookOnComplete() {
+//                log.info("hookOnComplete");
+//            }
+//
+//            @Override
+//            protected void hookOnError(Throwable throwable) {
+//                log.info("hookOnError : {}", throwable.getMessage(), throwable);
+//            }
+//
+//            @Override
+//            protected void hookOnCancel() {
+//                log.info("hookOnCancel");
+//            }
+//
+//            @Override
+//            protected void hookFinally(SignalType type){
+//                log.info("hookOnFinally {}", type.name());
+//            }
+//        });
 
 
 //
