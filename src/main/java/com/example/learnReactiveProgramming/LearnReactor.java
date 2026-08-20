@@ -12,10 +12,12 @@ import java.time.Duration;
 @Component
 @Slf4j
 public class LearnReactor {
-//    Producer
+
     public void learReactor(){
+        //    Producer
+
         Flux<String> fruits = Flux.just("apple", "litchi", "Banana")
-                        .map(fruit->{
+                        .map(fruit->{ // Processor or operator
                            if (fruit.equals("Banana"))
                                throw new RuntimeException("No likely Banana");
 
@@ -25,8 +27,9 @@ public class LearnReactor {
 //        Interval:- creates a Flux that emits values repeatedly at a fixed time interval
         Flux<String> flux = Flux.interval(Duration.ofSeconds(1))
                         .take(5)
-                        .map(tick -> "tick : "+tick);
+                        .map(tick -> "tick : "+tick); // Processor or operator
 
+//        Subscriber
         flux.subscribe(
                 item -> {
                     log.info("Processing: {}", item);
@@ -40,6 +43,7 @@ public class LearnReactor {
         );
 
 //        fruits.subscribe(new BaseSubscriber<String>() {
+//            Subscription
 //            @Override
 //            protected void hookOnSubscribe(Subscription subscription) {
 //                log.info("hookOnSubscribe");
