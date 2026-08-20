@@ -30,7 +30,10 @@ public class LearnReactor {
                         .map(tick -> "tick : "+tick); // Processor or operator
 
 //        Subscriber
-        flux.subscribe(
+        flux
+                .doOnSubscribe(sub -> log.info("on Subscribe"))
+                .doOnNext(item -> log.info("logging item {}",item))
+                .subscribe(
                 item -> {
                     log.info("Processing: {}", item);
                 },
