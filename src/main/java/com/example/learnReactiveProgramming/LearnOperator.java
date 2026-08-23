@@ -27,6 +27,13 @@ public class LearnOperator {
                 () -> slowTask()
         );
 
+//        Each flux method is created new Flux
+        Flux<String> fruits = Flux.just("apple", "banana", "cherry", "date", "eggs");
+        fruits.map(fruit -> fruit.toUpperCase())
+                .subscribe(
+                        (data) -> log.info("Fruits: {}", data)
+                );
+
     }
 
     @SneakyThrows // @SneakyThrows is a Lombok annotation used to avoid explicitly handling checked exceptions.
