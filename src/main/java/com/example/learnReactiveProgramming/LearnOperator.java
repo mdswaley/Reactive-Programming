@@ -12,6 +12,17 @@ import java.time.Duration;
 @Component
 @Slf4j
 public class LearnOperator {
+
+    public void learnAggregating(){
+        Flux<String> fruits = Flux.just("apple", "banana", "cherry", "date", "eggs");
+
+        fruits
+                .filter(fruit -> fruit.length() > 5)
+                .subscribe(
+                        (data) -> log.info("Data: {}", data)
+                );
+    }
+
     public void learnMaps(){
         Flux<Integer> counts = Flux.range(4, 10); // start from 4 then till 10 count. output is 4..13
 //        counts.subscribe(
@@ -37,7 +48,7 @@ public class LearnOperator {
 //                        (data) -> log.info("Fruits: {}", data)
 //                );
 
-        fruits.subscribe(
+        flux.subscribe(
                 (data) -> log.info("Data: {}", data)
         );
 
