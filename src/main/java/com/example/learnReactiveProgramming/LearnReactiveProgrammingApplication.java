@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LearnReactiveProgrammingApplication implements CommandLineRunner {
 
     private final LearnReactor learnReactor;
+    private final LearnOperator learnOperator;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LearnReactiveProgrammingApplication.class, args);
@@ -17,6 +18,8 @@ public class LearnReactiveProgrammingApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        learnReactor.learReactor();
+//        learnReactor.learReactor();
+        learnOperator.learnMaps();
+
     }
 }
