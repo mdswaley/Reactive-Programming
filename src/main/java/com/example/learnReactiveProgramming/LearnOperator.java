@@ -30,6 +30,7 @@ public class LearnOperator {
 //        Each flux method is created new Flux
         Flux<String> fruits = Flux.just("apple", "banana", "cherry", "date", "eggs");
         fruits.map(fruit -> fruit.toUpperCase())
+                .map(upperCaseFruit -> upperCaseFruit.substring(0, 3))
                 .subscribe(
                         (data) -> log.info("Fruits: {}", data)
                 );
