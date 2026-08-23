@@ -16,10 +16,16 @@ public class LearnOperator {
     public void learnAggregating(){
         Flux<String> fruits = Flux.just("apple", "banana", "cherry", "date", "eggs");
 
+//        fruits
+//                .filter(fruit -> fruit.length() > 5)
+//                .subscribe(
+//                        (data) -> log.info("Data: {}", data)
+//                );
+
         fruits
-                .filter(fruit -> fruit.length() > 5)
+                .take(3) // takes only first 3 data from producer
                 .subscribe(
-                        (data) -> log.info("Data: {}", data)
+                    (data) -> log.info("Data: {}", data)
                 );
     }
 
