@@ -16,6 +16,19 @@ public class LearnOperator {
 
     public void learnAggregating(){
         Flux<String> fruits = Flux.just("apple", "banana", "cherry", "date", "eggs");
+        Flux<String> moreFruits = Flux.just("pomegranate", "mango");
+
+        System.out.println("using concat method");
+        Flux.concat(fruits, moreFruits) // concat first fruits with moreFruits but need to wait for fruits to call on onComplete()
+                        .subscribe(System.out::println);
+
+        System.out.println("using concatWith method");
+        fruits.concatWith(moreFruits) // another way. same wait for first to complete
+                        .subscribe(System.out::println);
+
+        System.out.println("using mergeWith method");
+        fruits.mergeWith(moreFruits) // work both Flux parallel but order is not guarantee
+                        .subscribe(System.out::println);
 
 //        fruits
 //                .filter(fruit -> fruit.length() > 5)
@@ -36,6 +49,8 @@ public class LearnOperator {
                 .flatMap(group -> group.collectList()
                         .map(list -> group.key() + " -> " + list)) // key is the length count and value is actual list of the length
                 .subscribe(System.out::println);
+
+
     }
 
     public void learnMaps(){
