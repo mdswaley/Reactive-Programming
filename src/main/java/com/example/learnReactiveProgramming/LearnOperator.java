@@ -14,7 +14,7 @@ import java.util.Comparator;
 @Slf4j
 public class LearnOperator {
 
-    public void learnAggregating(){
+    public void learnAggregatingFlux(){
         Flux<String> fruits = Flux.just("apple", "banana", "cherry", "date", "eggs");
         Flux<String> moreFruits = Flux.just("pomegranate", "mango");
         Flux<String> colors = Flux.just("red", "yellow", "black", "brown", "white");
@@ -56,6 +56,14 @@ public class LearnOperator {
         fruits.groupBy(fruit -> fruit.length()) // group them on the basis of length
                 .flatMap(group -> group.collectList()
                         .map(list -> group.key() + " -> " + list)) // key is the length count and value is actual list of the length
+                .subscribe(System.out::println);
+
+
+    }
+
+    public void learnAggregatingMono(){
+//       single() – Enforce exactly one item. Throws exception if more than one item is emitted — good for strict validation.
+        Mono.just("Hello").single()
                 .subscribe(System.out::println);
 
 

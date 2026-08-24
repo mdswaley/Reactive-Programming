@@ -20,7 +20,8 @@ public class LearnReactiveProgrammingApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 //        learnReactor.learReactor();
 //        learnOperator.learnMaps();
-        learnOperator.learnAggregating();
+//        learnOperator.learnAggregatingFlux();
+        learnOperator.learnAggregatingMono();
 
     }
 }
