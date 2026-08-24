@@ -25,6 +25,7 @@ public class LearnOperator {
         fruits
                 .skip(2) // skip first 2 items
                 .take(3) // takes only first 3 data from producer
+                .count() // Operator waits for the stream to complete (onComplete) before emitting the final coun. Give 3 bcz already skip 2 items. it return mono<T> for that reason give only one value
                 .subscribe(
                     (data) -> log.info("Data: {}", data)
                 );
