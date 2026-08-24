@@ -8,6 +8,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.util.Comparator;
 
 @Component
 @Slf4j
@@ -23,9 +24,10 @@ public class LearnOperator {
 //                );
 
         fruits
-                .skip(2) // skip first 2 items
-                .take(3) // takes only first 3 data from producer
-                .count() // Operator waits for the stream to complete (onComplete) before emitting the final coun. Give 3 bcz already skip 2 items. it return mono<T> for that reason give only one value
+//                .skip(2) // skip first 2 items
+//                .take(3) // takes only first 3 data from producer
+//                .count() // Operator waits for the stream to complete (onComplete) before emitting the final coun. Give 3 bcz already skip 2 items. it return mono<T> for that reason give only one value
+                .sort(Comparator.reverseOrder()) // sort() needs to collect all elements in memory before sorting. so for that this is not recommended way to use in production level bcz producer -> collect data -> sort -> consumer
                 .subscribe(
                     (data) -> log.info("Data: {}", data)
                 );
