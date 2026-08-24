@@ -17,6 +17,8 @@ public class LearnOperator {
     public void learnAggregating(){
         Flux<String> fruits = Flux.just("apple", "banana", "cherry", "date", "eggs");
         Flux<String> moreFruits = Flux.just("pomegranate", "mango");
+        Flux<String> colors = Flux.just("red", "yellow", "black", "brown", "white");
+
 
         System.out.println("using concat method");
         Flux.concat(fruits, moreFruits) // concat first fruits with moreFruits but need to wait for fruits to call on onComplete()
@@ -28,6 +30,11 @@ public class LearnOperator {
 
         System.out.println("using mergeWith method");
         fruits.mergeWith(moreFruits) // work both Flux parallel but order is not guarantee
+                        .subscribe(System.out::println);
+
+        System.out.println();
+        System.out.println("using zip method");
+        Flux.zip(fruits, colors, (f, c) -> f + " is " + c) // Pairing Elements. Stops when the shortest stream ends — very useful when joining multiple service calls.
                         .subscribe(System.out::println);
 
 //        fruits
