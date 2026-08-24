@@ -66,6 +66,26 @@ public class LearnOperator {
         Mono.just("Hello").single()
                 .subscribe(System.out::println);
 
+//       Blocking (Only for testing)
+        String value = Mono.just("Hello").block(); // // blocks the calling thread here
+        log.info("Blocking result: "+value); // Warning: Never use in production WebFlux code.
+
+//        toFuture() – Convert to CompletableFuture. Helps in bridging reactive code with traditional async code (CompletableFuture).
+        Mono.just("Future Data")
+                .toFuture()
+                .thenAccept(System.out::println);
+
+//        Repeat the item give value
+        Mono.just("Hello")// first print
+                .repeat(3) // then 3 time print here
+                .subscribe(System.out::println);
+
+//        then() – Ignores previous result and continues — commonly used for fire and-forget operations after save.
+        Mono.just("Process this")
+                .doOnNext(data -> System.out.println("Processing: " + data)) // result is not required for next step
+                .then(Mono.just("Final Result")) // give only result
+                .subscribe(System.out::println);
+
 
     }
 
