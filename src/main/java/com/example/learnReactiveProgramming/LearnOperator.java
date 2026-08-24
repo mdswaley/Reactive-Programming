@@ -35,7 +35,8 @@ public class LearnOperator {
         System.out.println();
         System.out.println("using zip method");
         Flux.zip(fruits, colors, (f, c) -> f + " is " + c) // Pairing Elements. Stops when the shortest stream ends — very useful when joining multiple service calls.
-                        .subscribe(System.out::println);
+                .collectList() // this convert Flux to Mono. earlier without this subscribe give string data one after another. Now it will collect the data convert to List<String>
+                .subscribe(System.out::println);
 
 //        fruits
 //                .filter(fruit -> fruit.length() > 5)
