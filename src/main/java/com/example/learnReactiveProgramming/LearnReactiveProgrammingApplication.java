@@ -19,7 +19,8 @@ public class LearnReactiveProgrammingApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        learnReactor.learReactor();
-        learnOperator.learnMaps();
+//        learnOperator.learnMaps();
+        learnOperator.learnAggregating();
 
     }
 }

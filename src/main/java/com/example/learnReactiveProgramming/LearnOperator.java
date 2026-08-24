@@ -23,6 +23,7 @@ public class LearnOperator {
 //                );
 
         fruits
+                .skip(2) // skip first 2 items
                 .take(3) // takes only first 3 data from producer
                 .subscribe(
                     (data) -> log.info("Data: {}", data)
