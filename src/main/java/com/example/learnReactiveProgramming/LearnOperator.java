@@ -31,6 +31,11 @@ public class LearnOperator {
                 .subscribe(
                     (data) -> log.info("Data: {}", data)
                 );
+
+        fruits.groupBy(fruit -> fruit.length()) // group them on the basis of length
+                .flatMap(group -> group.collectList()
+                        .map(list -> group.key() + " -> " + list)) // key is the length count and value is actual list of the length
+                .subscribe(System.out::println);
     }
 
     public void learnMaps(){
