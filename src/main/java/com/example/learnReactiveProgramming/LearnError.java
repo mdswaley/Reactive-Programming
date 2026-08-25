@@ -27,10 +27,16 @@ public class LearnError {
             throw new RuntimeException("error occur");
         });
 
+//        fromCallable
+//                .onErrorComplete() // simple ignore the error and continue
+//                .subscribe(
+//                        data -> log.info("data : {}",data)
+//                );
+
         fromCallable
-                .onErrorComplete() // simple ignore the error and continue
+                .onErrorReturn("default fallback") // this will return default value for handling error
                 .subscribe(
-                        data -> log.info("data : {}",data)
+                        data -> log.info("data: {}", data)
                 );
 
         log.info("After callable"); // this will return after 4s. Bcz we are still using synchronous programming only main thread is running.
