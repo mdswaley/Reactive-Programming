@@ -11,6 +11,7 @@ public class LearnReactiveProgrammingApplication implements CommandLineRunner {
 
     private final LearnReactor learnReactor;
     private final LearnOperator learnOperator;
+    private final LearnError learnError;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LearnReactiveProgrammingApplication.class, args);
@@ -21,7 +22,7 @@ public class LearnReactiveProgrammingApplication implements CommandLineRunner {
 //        learnReactor.learReactor();
 //        learnOperator.learnMaps();
 //        learnOperator.learnAggregatingFlux();
-        learnOperator.learnAggregatingMono();
-
+//        learnOperator.learnAggregatingMono();
+          learnError.learnErrorHandling();
     }
 }
