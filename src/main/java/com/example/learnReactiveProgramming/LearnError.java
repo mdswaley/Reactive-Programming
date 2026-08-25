@@ -34,11 +34,12 @@ public class LearnError {
 //                        data -> log.info("data : {}",data)
 //                );
 
-//        fromCallable
-//                .onErrorReturn("default fallback") // this will return default value for handling error
-//                .subscribe(
-//                        data -> log.info("data: {}", data)
-//                );
+        fromCallable
+                .doOnError(err -> log.error("error logged: {}", err.getMessage(), err)) // use for logging without recovering
+                .onErrorReturn("default fallback") // this will return default value for handling error
+                .subscribe(
+                        data -> log.info("data: {}", data)
+                );
 
 //        Flux.just("apple", "banana", "cherry")
 //                .map(fruit -> {
@@ -53,7 +54,7 @@ public class LearnError {
                     if (fruit.equals("banana")) throw new RuntimeException("Bad fruit!");
                     return fruit.toUpperCase();
                 })
-                .onErrorMap(err -> new IllegalArgumentException("Failed to process fruits", err))
+                .onErrorMap(err -> new IllegalArgumentException("Failed to process fruits", err)) // Transforming Exceptions: Changes one exception type into another
                         .subscribe(System.out::println,
                                 err -> System.err.println("Error: " + err.getMessage())
                         );
