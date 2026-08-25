@@ -40,13 +40,23 @@ public class LearnError {
 //                        data -> log.info("data: {}", data)
 //                );
 
+//        Flux.just("apple", "banana", "cherry")
+//                .map(fruit -> {
+//                    if (fruit.equals("banana")) throw new RuntimeException("Bad fruit!");
+//                    return fruit.toUpperCase();
+//                })
+//                .onErrorResume(err -> Flux.just("mango", "orange")) //  Falling Back to Another Stream
+//                .subscribe(System.out::println);
+
         Flux.just("apple", "banana", "cherry")
                 .map(fruit -> {
                     if (fruit.equals("banana")) throw new RuntimeException("Bad fruit!");
                     return fruit.toUpperCase();
                 })
-                .onErrorResume(err -> Flux.just("mango", "orange")) //  Falling Back to Another Stream
-                .subscribe(System.out::println);
+                .onErrorMap(err -> new IllegalArgumentException("Failed to process fruits", err))
+                        .subscribe(System.out::println,
+                                err -> System.err.println("Error: " + err.getMessage())
+                        );
 
 
         log.info("After callable"); // this will return after 4s. Bcz we are still using synchronous programming only main thread is running.
